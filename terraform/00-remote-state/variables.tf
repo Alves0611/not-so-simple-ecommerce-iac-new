@@ -14,3 +14,11 @@ variable "aws" {
     external_id = "679e2de7-7db8-4114-af04-6620fdae82f9"
   }
 }
+
+variable "tags" {
+  type = map(string)
+  default = {
+    Project   = "nsse"
+    Managedby = "Terraform"
+  }
+}
