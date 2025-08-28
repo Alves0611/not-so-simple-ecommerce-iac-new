@@ -15,6 +15,21 @@ variable "aws" {
   }
 }
 
+
+variable "vpc_resources" {
+  type = object({
+    vpc              = string,
+    vpc_cidr_block   = string,
+    internet_gateway = string,
+  })
+
+  default = {
+    vpc              = "nsse-vpc",
+    vpc_cidr_block   = "10.0.0.0/24",
+    internet_gateway = "igw"
+  }
+}
+
 variable "tags" {
   type = map(string)
   default = {
