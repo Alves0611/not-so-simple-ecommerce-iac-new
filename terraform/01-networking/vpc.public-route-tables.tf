@@ -9,3 +9,9 @@ resource "aws_route_table" "public" {
   tags = { Name = "${var.vpc_resources.vpc}-${var.vpc_resources.public_route_table_name}" }
 }
 
+resource "aws_route_table_association" "public" {
+  count = length(aws_subnet.publics)
+
+  subnet_id      = aws_subnet.publics[count.index].id
+  route_table_id = aws_route_table.public.id
+}
