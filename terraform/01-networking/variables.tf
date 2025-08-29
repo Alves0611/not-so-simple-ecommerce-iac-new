@@ -18,15 +18,39 @@ variable "aws" {
 
 variable "vpc_resources" {
   type = object({
-    vpc              = string,
-    vpc_cidr_block   = string,
-    internet_gateway = string,
+    vpc                     = string
+    vpc_cidr_block          = string
+    internet_gateway        = string
+    public_route_table_name = string
+
+    public_subnets = list(object({
+      name                    = string
+      cidr_block              = string
+      availability_zone       = string
+      map_public_ip_on_launch = bool
+    }))
   })
 
   default = {
-    vpc              = "nsse-vpc",
-    vpc_cidr_block   = "10.0.0.0/24",
-    internet_gateway = "igw"
+    vpc                     = "nsse-vpc"
+    vpc_cidr_block          = "10.0.0.0/24"
+    internet_gateway        = "igw"
+    public_route_table_name = "public-rt"
+
+    public_subnets = [
+      {
+        name                    = "public-1a"
+        availability_zone       = "us-east-1a"
+        cidr_block              = "10.0.0.0/27"
+        map_public_ip_on_launch = true
+      },
+      {
+        name                    = "public-1b"
+        availability_zone       = "us-east-1b"
+        cidr_block              = "10.0.0.64/27"
+        map_public_ip_on_launch = true
+      }
+    ]
   }
 }
 
