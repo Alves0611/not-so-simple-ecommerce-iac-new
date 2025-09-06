@@ -17,16 +17,29 @@ variable "aws" {
 
 variable "ec2_resources" {
   type = object({
-    key_pair_name    = string
-    instance_profile = string
-    instance_role    = string
-    ssm_policy_arn   = string
+    key_pair_name      = string
+    instance_profile   = string
+    instance_role      = string
+    ssm_policy_arn     = string
+    ssh_security_group = string
+    ssh_source_ip      = string
   })
   default = {
-    key_pair_name    = "nsse-key-pair"
-    instance_profile = "nsse-instance-profile"
-    instance_role    = "nsse-instance-role"
-    ssm_policy_arn   = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+    key_pair_name      = "nsse-key-pair"
+    instance_profile   = "nsse-instance-profile"
+    instance_role      = "nsse-instance-role"
+    ssm_policy_arn     = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+    ssh_security_group = "nsse-allow-ssh"
+    ssh_source_ip      = "0.0.0.0/0"
+  }
+}
+
+variable "vpc_resources" {
+  type = object({
+    vpc = string
+  })
+  default = {
+    vpc = "nsse-vpc"
   }
 }
 
