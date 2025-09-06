@@ -17,10 +17,16 @@ variable "aws" {
 
 variable "ec2_resources" {
   type = object({
-    key_pair_name = string
+    key_pair_name    = string
+    instance_profile = string
+    instance_role    = string
+    ssm_policy_arn   = string
   })
   default = {
-    key_pair_name = "nsse-key-pair"
+    key_pair_name    = "nsse-key-pair"
+    instance_profile = "nsse-instance-profile"
+    instance_role    = "nsse-instance-role"
+    ssm_policy_arn   = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
   }
 }
 
