@@ -70,10 +70,48 @@ variable "control_plane_launch_template" {
   }
 }
 
+variable "control_plane_asg" {
+  type = object({
+    name                      = string
+    max_size                  = number
+    min_size                  = number
+    desired_capacity          = number
+    health_check_grace_period = number
+    health_check_type         = string
+    instance_maintenance_policy = object({
+      min_healthy_percentage = number
+      max_healthy_percentage = number
+    })
+    tags = object({
+      key                 = string
+      value               = string
+      propagate_at_launch = bool
+    })
+  })
+  default = {
+    name                      = "nsse-control-plane-asg"
+    max_size                  = 1
+    min_size                  = 1
+    desired_capacity          = 1
+    health_check_grace_period = 180
+    health_check_type         = "EC2"
+    instance_maintenance_policy = {
+      min_healthy_percentage = 100
+      max_healthy_percentage = 110
+    }
+    tags = {
+      key                 = "Name"
+      value               = "nsse-control-plane-asg"
+      propagate_at_launch = true
+    }
+  }
+}
+
 variable "tags" {
   type = map(string)
   default = {
-    Project   = "nsse"
-    Managedby = "Terraform"
+    Project     = "nsse"
+    Managedby   = "Terraform"
+    Environment = "production"
   }
 }
