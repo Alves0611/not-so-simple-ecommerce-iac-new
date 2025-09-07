@@ -43,6 +43,33 @@ variable "vpc_resources" {
   }
 }
 
+variable "control_plane_launch_template" {
+  type = object({
+    name                                 = string
+    disable_api_stop                     = bool
+    disable_api_termination              = bool
+    instance_type                        = string
+    instance_initiated_shutdown_behavior = string
+    ebs = object({
+      volume_size           = number
+      delete_on_termination = bool
+    })
+  })
+
+  default = {
+    name                                 = "nsse-control-plane-lt"
+    disable_api_stop                     = true
+    disable_api_termination              = true
+    instance_type                        = "t3.micro"
+    instance_initiated_shutdown_behavior = "terminate"
+    ebs = {
+      volume_size           = 20
+      delete_on_termination = true
+    }
+
+  }
+}
+
 variable "tags" {
   type = map(string)
   default = {
