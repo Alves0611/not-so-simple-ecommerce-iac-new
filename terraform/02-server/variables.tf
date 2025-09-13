@@ -50,6 +50,7 @@ variable "control_plane_launch_template" {
     disable_api_termination              = bool
     instance_type                        = string
     instance_initiated_shutdown_behavior = string
+    user_data                            = string
     ebs = object({
       volume_size           = number
       delete_on_termination = bool
@@ -61,6 +62,7 @@ variable "control_plane_launch_template" {
     disable_api_termination              = true
     instance_type                        = "t3.micro"
     instance_initiated_shutdown_behavior = "terminate"
+    user_data                            = "./cli/control-plane-user-data.sh"
     ebs = {
       volume_size           = 20
       delete_on_termination = true
@@ -102,6 +104,7 @@ variable "worker_launch_template" {
     disable_api_termination              = bool
     instance_type                        = string
     instance_initiated_shutdown_behavior = string
+    user_data                            = string
     ebs = object({
       volume_size           = number
       delete_on_termination = bool
@@ -114,6 +117,7 @@ variable "worker_launch_template" {
     disable_api_termination              = true
     instance_type                        = "t3.micro"
     instance_initiated_shutdown_behavior = "terminate"
+    user_data                            = "./cli/worker-user-data.sh"
     ebs = {
       volume_size           = 20
       delete_on_termination = false
@@ -129,7 +133,6 @@ variable "worker_asg" {
     desired_capacity          = number
     health_check_grace_period = number
     health_check_type         = string
-    vpc_zone_identifier       = list(string)
     instance_maintenance_policy = object({
       min_healthy_percentage = number
       max_healthy_percentage = number
@@ -143,7 +146,6 @@ variable "worker_asg" {
     desired_capacity          = 1
     health_check_grace_period = 180
     health_check_type         = "EC2"
-    vpc_zone_identifier       = []
     instance_maintenance_policy = {
       min_healthy_percentage = 100
       max_healthy_percentage = 110
