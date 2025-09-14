@@ -27,7 +27,11 @@ module "ec2_control_plane" {
     health_check_type         = var.control_plane_asg.health_check_type
     health_check_grace_period = var.control_plane_asg.health_check_grace_period
     vpc_zone_identifier       = data.aws_subnets.private.ids
-    target_group_arns         = []
+    instance_tags = merge(
+      { PatchGroup = var.patch_group },
+      var.tags,
+      var.control_plane_asg.instance_tags
+    )
     instance_maintenance_policy = {
       min_healthy_percentage = var.control_plane_asg.instance_maintenance_policy.min_healthy_percentage
       max_healthy_percentage = var.control_plane_asg.instance_maintenance_policy.max_healthy_percentage
