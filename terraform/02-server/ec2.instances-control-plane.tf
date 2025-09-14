@@ -11,7 +11,7 @@ module "ec2_control_plane" {
     instance_initiated_shutdown_behavior = var.control_plane_launch_template.instance_initiated_shutdown_behavior
     key_name                             = aws_key_pair.this.key_name
     image_id                             = data.aws_ami.this.id
-    vpc_security_group_ids               = [aws_security_group.allow_ssh.id]
+    vpc_security_group_ids               = [aws_security_group.control_plane.id]
     user_data                            = filebase64(var.control_plane_launch_template.user_data)
     ebs = {
       volume_size           = var.control_plane_launch_template.ebs.volume_size
