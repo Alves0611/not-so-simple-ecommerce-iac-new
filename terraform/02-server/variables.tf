@@ -257,6 +257,18 @@ variable "debian_association" {
   }
 }
 
+variable "logs_bucket" {
+  type = object({
+    bucket        = string
+    force_destroy = bool
+  })
+
+  default = {
+    bucket        = "nsse-logs"
+    force_destroy = true
+  }
+}
+
 variable "tags" {
   type = map(string)
   default = {
