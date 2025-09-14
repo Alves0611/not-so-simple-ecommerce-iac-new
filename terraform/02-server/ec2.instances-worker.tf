@@ -12,7 +12,7 @@ module "ec2_worker" {
     instance_initiated_shutdown_behavior = var.worker_launch_template.instance_initiated_shutdown_behavior
     key_name                             = aws_key_pair.this.key_name
     image_id                             = data.aws_ami.this.id
-    vpc_security_group_ids               = [aws_security_group.allow_ssh.id]
+    vpc_security_group_ids               = [aws_security_group.worker.id]
     user_data                            = filebase64(var.worker_launch_template.user_data)
     ebs = {
       volume_size           = var.worker_launch_template.ebs.volume_size
