@@ -23,6 +23,8 @@ variable "ec2_resources" {
     ssm_policy_arn     = string
     ssh_security_group = string
     ssh_source_ip      = string
+    control_plane_security_group = string
+    worker_security_group = string
   })
   default = {
     key_pair_name      = "nsse-key-pair"
@@ -31,6 +33,8 @@ variable "ec2_resources" {
     ssm_policy_arn     = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
     ssh_security_group = "nsse-allow-ssh"
     ssh_source_ip      = "0.0.0.0/0"
+    control_plane_security_group = "nsse-control-plane-sg"
+    worker_security_group = "nsse-worker-sg"
   }
 }
 
