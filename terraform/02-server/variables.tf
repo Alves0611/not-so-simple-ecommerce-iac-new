@@ -17,24 +17,24 @@ variable "aws" {
 
 variable "ec2_resources" {
   type = object({
-    key_pair_name      = string
-    instance_profile   = string
-    instance_role      = string
-    ssm_policy_arn     = string
-    ssh_security_group = string
-    ssh_source_ip      = string
+    key_pair_name                = string
+    instance_profile             = string
+    instance_role                = string
+    ssm_policy_arn               = string
+    ssh_security_group           = string
+    ssh_source_ip                = string
     control_plane_security_group = string
-    worker_security_group = string
+    worker_security_group        = string
   })
   default = {
-    key_pair_name      = "nsse-key-pair"
-    instance_profile   = "nsse-instance-profile"
-    instance_role      = "nsse-instance-role"
-    ssm_policy_arn     = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-    ssh_security_group = "nsse-allow-ssh"
-    ssh_source_ip      = "0.0.0.0/0"
+    key_pair_name                = "nsse-key-pair"
+    instance_profile             = "nsse-instance-profile"
+    instance_role                = "nsse-instance-role"
+    ssm_policy_arn               = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+    ssh_security_group           = "nsse-allow-ssh"
+    ssh_source_ip                = "0.0.0.0/0"
     control_plane_security_group = "nsse-control-plane-sg"
-    worker_security_group = "nsse-worker-sg"
+    worker_security_group        = "nsse-worker-sg"
   }
 }
 
@@ -157,6 +157,21 @@ variable "worker_asg" {
   }
 }
 
+variable "debian_patch_baseline" {
+  type = object({
+    name                                 = string
+    description                          = string
+    approved_patches_enable_non_security = bool
+    operating_system                     = string
+  })
+  default = {
+    name                                 = "DebianPatchBaseline"
+    description                          = "Custom Patch Baseline for Debian Servers"
+    approved_patches_enable_non_security = false
+    operating_system                     = "DEBIAN"
+  }
+}
+
 variable "tags" {
   type = map(string)
   default = {
@@ -164,4 +179,9 @@ variable "tags" {
     Managedby   = "Terraform"
     Environment = "production"
   }
+}
+
+variable "patch_group" {
+  type    = string
+  default = "prd"
 }
