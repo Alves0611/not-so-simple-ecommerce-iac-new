@@ -16,4 +16,10 @@ resource "aws_autoscaling_group" "this" {
     min_healthy_percentage = var.auto_scaling_group.instance_maintenance_policy.min_healthy_percentage
     max_healthy_percentage = var.auto_scaling_group.instance_maintenance_policy.max_healthy_percentage
   }
+
+  tag {
+    key                 = "Patch Group"
+    value               = var.tags.Environment
+    propagate_at_launch = false
+  }
 }
