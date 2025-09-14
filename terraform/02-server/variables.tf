@@ -180,3 +180,8 @@ variable "tags" {
     Environment = "production"
   }
 }
+
+variable "patch_group" {
+  type    = string
+  default = "prd"
+}
