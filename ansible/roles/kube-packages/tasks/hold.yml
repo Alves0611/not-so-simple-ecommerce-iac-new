@@ -1,0 +1,9 @@
+---
+- name: Hold the kubelet, kubeadm and kubectl at current version
+  dpkg_selections:
+    name: "{{ item }}"
+    selection: hold
+  loop:
+    - kubelet
+    - kubeadm
+    - kubectl
