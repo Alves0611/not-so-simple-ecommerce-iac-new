@@ -1,0 +1,9 @@
+plugin: amazon.aws.aws_ec2
+profile: studying
+regions:
+  - us-east-1
+groups: 
+  control_plane: "'nsse-control-plane' in tags.Name"
+  worker: "'nsse-worker' in tags.Name"
+hostnames:
+  - instance-id
