@@ -6,4 +6,5 @@
       - ca-certificates
       - curl
       - gpg
-    update_cache: yes
+      - software-properties-common
+    update_cache: true
