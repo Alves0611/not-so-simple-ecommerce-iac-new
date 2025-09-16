@@ -269,6 +269,37 @@ variable "logs_bucket" {
   }
 }
 
+variable "network_load_balancer" {
+  type = object({
+    name               = string
+    internal           = bool
+    load_balancer_type = string
+    default_tg = object({
+      name     = string
+      port     = number
+      protocol = string
+    })
+    default_listener = object({
+      port     = number
+      protocol = string
+    })
+  })
+  default = {
+    name               = "nsse-nlb"
+    internal           = true
+    load_balancer_type = "network"
+    default_tg = {
+      name     = "nsse-nlb-control-plane-tg"
+      port     = 6443
+      protocol = "TCP"
+    }
+    default_listener = {
+      port     = 6443
+      protocol = "TCP"
+    }
+  }
+}
+
 variable "tags" {
   type = map(string)
   default = {
