@@ -278,6 +278,7 @@ variable "network_load_balancer" {
       name     = string
       port     = number
       protocol = string
+      preserve_client_ip = bool
     })
     default_listener = object({
       port     = number
@@ -292,6 +293,7 @@ variable "network_load_balancer" {
       name     = "nsse-nlb-control-plane-tg"
       port     = 6443
       protocol = "TCP"
+      preserve_client_ip = false
     }
     default_listener = {
       port     = 6443
