@@ -1,6 +1,6 @@
 ---
 - name: Installing Dependency Packages
-  ansible.builtin.apt:
+  apt:
     name:
       - apt-transport-https
       - ca-certificates
